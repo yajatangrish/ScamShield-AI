@@ -9,7 +9,9 @@
   <title>ScamShield AI | Think Before You Trust</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
@@ -17,11 +19,11 @@
 <body>
   <header class="navbar">
     <a href="#home" class="brand">
-      <span class="brand-icon">S</span>
+      <span class="brand-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></span>
       <span>ScamShield<span class="brand-ai"> AI</span></span>
     </a>
 
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
 
     <nav class="nav-links" id="navLinks">
       <a href="#home">Home</a>
@@ -29,7 +31,7 @@
       <a href="#scanner">Scam Scanner</a>
       <a href="#safety">Safety Center</a>
       <a href="#faqs">FAQs</a>
-      <a href="#scanner" class="nav-cta">Check a Message ↗</a>
+      <a href="#scanner" class="nav-cta">Check a Message <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
 
       
 <button
@@ -39,7 +41,7 @@
   aria-label="Switch to dark mode"
   title="Switch theme"
 >
-  <span id="themeIcon" aria-hidden="true">🌙</span>
+  <span id="themeIcon" aria-hidden="true"><i class="fa-solid fa-moon"></i></span>
   <span id="themeLabel">Dark mode</span>
 </button>
 
@@ -56,12 +58,38 @@
           and online earning opportunities. Pause, check, and protect yourself.
         </p>
         <div class="hero-actions">
-          <a class="button button-dark" href="#scanner">Scan a Message <span>↗</span></a>
+          <a class="button button-dark" href="#scanner">Scan a Message <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
           <a class="button button-light" href="#safety">Explore Safety Tips</a>
         </div>
-        <div class="trust-note"><span>✦</span> Think clearly. Stay protected. Browse confidently.</div>
+        <div class="trust-note"><span><i class="fa-solid fa-shield-heart" aria-hidden="true"></i></span> Think clearly. Stay protected. Browse confidently.</div>
       </div>
 
+      <div class="hero-art" aria-label="Animated photos illustrating people encountering suspicious online messages and payment requests">
+        <div class="hero-photo-stage">
+          <figure class="hero-photo hero-photo-one">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="People looking at a laptop together while reviewing an online message" fetchpriority="high">
+          </figure>
+          <figure class="hero-photo hero-photo-two">
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Person making a payment, illustrating the pressure to send money" loading="lazy">
+          </figure>
+          <figure class="hero-photo hero-photo-three">
+            <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Person checking a security alert on a phone and laptop" loading="lazy">
+          </figure>
+          <div class="hero-photo-shade" aria-hidden="true"></div>
+          <div class="hero-photo-caption">
+            <span>PAUSE BEFORE YOU RESPOND</span>
+            <strong>Pressure and urgency can be warning signs.</strong>
+          </div>
+        </div>
+        <div class="hero-risk-tag hero-risk-tag-top">
+          <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+          <span>Urgent message</span>
+        </div>
+        <div class="hero-risk-tag hero-risk-tag-bottom">
+          <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+          <span>Check before you pay</span>
+        </div>
+      </div>
     </section>
 
     <section class="stats-strip">
@@ -79,19 +107,19 @@
       <div class="feature-grid">
         <article class="feature-card">
           <span class="feature-number">01 / NOTICE</span>
-          <div class="feature-icon lavender">⌕</div>
+          <div class="feature-icon lavender"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></div>
           <h3>Paste the message</h3>
           <p>Share the text of a job offer, earning opportunity, or message that feels unusual.</p>
         </article>
         <article class="feature-card">
           <span class="feature-number">02 / REVIEW</span>
-          <div class="feature-icon silver">⌁</div>
+          <div class="feature-icon silver"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></div>
           <h3>Check the warning signs</h3>
           <p>Review suspicious phrases, urgency, payment requests, and other common red flags.</p>
         </article>
         <article class="feature-card">
           <span class="feature-number">03 / PROTECT</span>
-          <div class="feature-icon cream">♡</div>
+          <div class="feature-icon cream"><i class="fa-solid fa-shield-heart" aria-hidden="true"></i></div>
           <h3>Choose your next step</h3>
           <p>Use practical safety recommendations to decide what to verify before responding.</p>
         </article>
@@ -103,19 +131,19 @@
         <span class="eyebrow">YOUR SECOND LOOK</span>
         <h2>Something feels off?<br><em>Let's look closer.</em></h2>
         <p>Paste a suspicious message below to check for common scam indicators.</p>
-        <div class="privacy-note"><span>◇</span> Demo mode: analysis runs locally in your browser. No message is sent to a server.</div>
+        <div class="privacy-note"><span><i class="fa-solid fa-lock" aria-hidden="true"></i></span> Demo mode: analysis runs locally in your browser. No message is sent to a server.</div>
       </div>
 
       <div class="scanner-card">
         <div class="scanner-card-header">
-          <div><span class="scanner-icon">⌕</span><strong>Message Scanner</strong></div>
+          <div><span class="scanner-icon"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span><strong>Message Scanner</strong></div>
           <span class="demo-pill">DEMO MODE</span>
         </div>
         <label for="messageInput">Your message</label>
         <textarea id="messageInput" maxlength="5000" placeholder="Paste the job offer or message you're unsure about..." aria-describedby="charCount"></textarea>
         <div class="input-meta"><span id="charCount">0 / 5000 characters</span><span>Don't include passwords or private information.</span></div>
         <div class="scanner-actions">
-          <button class="button button-dark" id="analyzeBtn" type="button">Analyze Message ↗</button>
+          <button class="button button-dark" id="analyzeBtn" type="button">Analyze Message <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
           <button class="button button-light" id="sampleBtn" type="button">Try Sample</button>
           <button class="text-button" id="clearBtn" type="button">Clear</button>
         </div>
@@ -144,10 +172,53 @@
         <h2>Red flags worth<br><em>paying attention to.</em></h2>
       </div>
       <div class="warning-grid">
-        <article class="warning-card"><span>↗</span><h3>Too good to be true</h3><p>Unusually high pay for very little work or no experience.</p></article>
-        <article class="warning-card"><span>₹</span><h3>Pay to get paid</h3><p>Requests for registration fees, deposits, or training payments.</p></article>
-        <article class="warning-card"><span>⌛</span><h3>Artificial urgency</h3><p>Pressure to act immediately or lose an exclusive opportunity.</p></article>
-        <article class="warning-card"><span>◇</span><h3>Personal data requests</h3><p>Early requests for OTPs, passwords, banking details, or identity documents.</p></article>
+        <article class="warning-card"><span><i class="fa-solid fa-sack-dollar" aria-hidden="true"></i></span><h3>Too good to be true</h3><p>Unusually high pay for very little work or no experience.</p></article>
+        <article class="warning-card"><span><i class="fa-solid fa-money-bill-transfer" aria-hidden="true"></i></span><h3>Pay to get paid</h3><p>Requests for registration fees, deposits, or training payments.</p></article>
+        <article class="warning-card"><span><i class="fa-solid fa-hourglass-half" aria-hidden="true"></i></span><h3>Artificial urgency</h3><p>Pressure to act immediately or lose an exclusive opportunity.</p></article>
+        <article class="warning-card"><span><i class="fa-solid fa-id-card" aria-hidden="true"></i></span><h3>Personal data requests</h3><p>Early requests for OTPs, passwords, banking details, or identity documents.</p></article>
+      </div>
+    </section>
+
+    <section class="scam-stories-section section" aria-labelledby="scam-stories-title">
+      <div class="section-heading">
+        <span class="eyebrow">REAL PEOPLE. REAL-LIFE RED FLAGS.</span>
+        <h2>Scams can reach <em>anyone.</em></h2>
+        <p>Pause when a message asks for money, personal details, or an immediate decision.</p>
+      </div>
+      <div class="scam-stories-grid">
+        <article class="scam-story-card">
+          <div class="scam-story-image">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="People looking at a laptop together while reviewing an online message" loading="lazy">
+            <span class="scam-story-icon"><i class="fa-solid fa-comment-dots" aria-hidden="true"></i></span>
+          </div>
+          <div class="scam-story-copy">
+            <span class="scam-story-label">SUSPICIOUS MESSAGES</span>
+            <h3>Take a second look</h3>
+            <p>A convincing message can still hide a request for money or private information.</p>
+          </div>
+        </article>
+        <article class="scam-story-card">
+          <div class="scam-story-image">
+            <img src="assets/worried-person-phone.jpg" alt="Worried man checking his phone after receiving a suspicious message" loading="lazy">
+            <span class="scam-story-icon"><i class="fa-solid fa-credit-card" aria-hidden="true"></i></span>
+          </div>
+          <div class="scam-story-copy">
+            <span class="scam-story-label">PAYMENT PRESSURE</span>
+            <h3>Never pay to get a job</h3>
+            <p>Pause and verify independently before sending a fee, deposit, or “unlock” payment.</p>
+          </div>
+        </article>
+        <article class="scam-story-card">
+          <div class="scam-story-image">
+            <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Person reviewing a security alert on a phone and laptop" loading="lazy">
+            <span class="scam-story-icon"><i class="fa-solid fa-user-shield" aria-hidden="true"></i></span>
+          </div>
+          <div class="scam-story-copy">
+            <span class="scam-story-label">PROTECT YOURSELF</span>
+            <h3>Keep your details private</h3>
+            <p>Never share an OTP, password, or banking PIN with a recruiter or unknown contact.</p>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -201,9 +272,9 @@
 
     <div class="about-content">
       <div class="about-illustration" aria-hidden="true">
-        <div class="illustration-circle">🛡️</div>
-        <div class="illustration-sparkle sparkle-one">✦</div>
-        <div class="illustration-sparkle sparkle-two">✧</div>
+        <div class="illustration-circle"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
+        <div class="illustration-sparkle sparkle-one"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></div>
+        <div class="illustration-sparkle sparkle-two"><i class="fa-solid fa-star" aria-hidden="true"></i></div>
         <div class="illustration-label">Stay aware. Stay safe.</div>
       </div>
 
@@ -213,19 +284,19 @@
 
         <ul class="about-points">
           <li>
-            <span class="point-icon">✦</span>
+            <span class="point-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></span>
             <span>An AI-powered platform concept for detecting suspicious job offers and potential online scams.</span>
           </li>
           <li>
-            <span class="point-icon">✓</span>
+            <span class="point-icon"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
             <span>Highlights common scam indicators and provides practical safety recommendations.</span>
           </li>
           <li>
-            <span class="point-icon">♧</span>
+            <span class="point-icon"><i class="fa-solid fa-user-shield" aria-hidden="true"></i></span>
             <span>Promotes digital awareness and helps users make safer, more informed decisions.</span>
           </li>
           <li>
-            <span class="point-icon">✧</span>
+            <span class="point-icon"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i></span>
             <span>Built to address real-world cybersecurity challenges through accessible technology.</span>
           </li>
         </ul>
@@ -282,4 +353,3 @@
   </footer>
 </body>
 </html>
-
