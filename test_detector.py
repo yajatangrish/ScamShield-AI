@@ -26,6 +26,7 @@ class DetectorTests(unittest.TestCase):
 
     def test_safety_warning_is_not_flagged_as_credential_request(self):
         result = analyze_message("Never share your OTP or password with anyone.")
+        
         self.assertNotIn("Request for sensitive credentials or financial details", result["signals"])
 
     def test_ordinary_message_has_no_configured_signals(self):
