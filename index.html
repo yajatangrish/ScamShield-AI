@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8f5f1" />
+  <meta name="description" content="ScamShield AI helps you spot warning signs in suspicious job offers and online earning messages." />
+  <title>ScamShield AI | Think Before You Trust</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <header class="navbar">
+    <a href="#home" class="brand">
+      <span class="brand-icon">S</span>
+      <span>ScamShield<span class="brand-ai"> AI</span></span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#scanner">Scam Scanner</a>
+      <a href="#safety">Safety Center</a>
+      <a href="#faqs">FAQs</a>
+      <a href="#scanner" class="nav-cta">Check a Message ↗</a>
+
+      
+<button
+  class="theme-toggle"
+  id="themeToggle"
+  type="button"
+  aria-label="Switch to dark mode"
+  title="Switch theme"
+>
+  <span id="themeIcon" aria-hidden="true">🌙</span>
+  <span id="themeLabel">Dark mode</span>
+</button>
+
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero section" id="home">
+      <div class="hero-content">
+        <span class="eyebrow"><span class="status-dot"></span> YOUR DIGITAL SAFETY COMPANION</span>
+        <h1>Not Every Opportunity Is <em>What It Seems.</em></h1>
+        <p class="hero-description">
+          Your intelligent companion for identifying suspicious job offers
+          and online earning opportunities. Pause, check, and protect yourself.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#scanner">Scan a Message <span>↗</span></a>
+          <a class="button button-light" href="#safety">Explore Safety Tips</a>
+        </div>
+        <div class="trust-note"><span>✦</span> Think clearly. Stay protected. Browse confidently.</div>
+      </div>
+
+    </section>
+
+    <section class="stats-strip">
+      <div><strong>01</strong><span>Pause before responding</span></div>
+      <div><strong>02</strong><span>Look for warning signs</span></div>
+      <div><strong>03</strong><span>Verify independently</span></div>
+    </section>
+
+    <section class="section intro-section" id="how-it-works">
+      <div class="section-heading">
+        <span class="eyebrow">A LITTLE CLARITY GOES A LONG WAY</span>
+        <h2>Trust your instincts.<br><em>Verify with intention.</em></h2>
+        <p>Suspicious messages can look convincing. Learn the signs before you take the next step.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-number">01 / NOTICE</span>
+          <div class="feature-icon lavender">⌕</div>
+          <h3>Paste the message</h3>
+          <p>Share the text of a job offer, earning opportunity, or message that feels unusual.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">02 / REVIEW</span>
+          <div class="feature-icon silver">⌁</div>
+          <h3>Check the warning signs</h3>
+          <p>Review suspicious phrases, urgency, payment requests, and other common red flags.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">03 / PROTECT</span>
+          <div class="feature-icon cream">♡</div>
+          <h3>Choose your next step</h3>
+          <p>Use practical safety recommendations to decide what to verify before responding.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="scanner-section section" id="scanner">
+      <div class="scanner-intro">
+        <span class="eyebrow">YOUR SECOND LOOK</span>
+        <h2>Something feels off?<br><em>Let's look closer.</em></h2>
+        <p>Paste a suspicious message below to check for common scam indicators.</p>
+        <div class="privacy-note"><span>◇</span> Demo mode: analysis runs locally in your browser. No message is sent to a server.</div>
+      </div>
+
+      <div class="scanner-card">
+        <div class="scanner-card-header">
+          <div><span class="scanner-icon">⌕</span><strong>Message Scanner</strong></div>
+          <span class="demo-pill">DEMO MODE</span>
+        </div>
+        <label for="messageInput">Your message</label>
+        <textarea id="messageInput" maxlength="5000" placeholder="Paste the job offer or message you're unsure about..." aria-describedby="charCount"></textarea>
+        <div class="input-meta"><span id="charCount">0 / 5000 characters</span><span>Don't include passwords or private information.</span></div>
+        <div class="scanner-actions">
+          <button class="button button-dark" id="analyzeBtn" type="button">Analyze Message ↗</button>
+          <button class="button button-light" id="sampleBtn" type="button">Try Sample</button>
+          <button class="text-button" id="clearBtn" type="button">Clear</button>
+        </div>
+        <p class="scanner-error" id="scannerError" role="alert" hidden></p>
+
+        <div class="scan-loading" id="scanLoading" hidden>
+          <div class="loader"></div><span>Checking for common warning signs...</span>
+        </div>
+
+        <div class="results-panel" id="resultsPanel" aria-live="polite" hidden>
+          <div class="results-top">
+            <div><span class="eyebrow">MESSAGE REVIEW</span><h3 id="resultTitle">Review complete</h3></div>
+            <span class="risk-badge" id="riskBadge">Needs review</span>
+          </div>
+          <p id="resultSummary"></p>
+          <div class="result-block"><h4>Warning signs found</h4><ul id="warningList"></ul></div>
+          <div class="result-block"><h4>What you can do next</h4><ul id="recommendationList"></ul></div>
+          <p class="disclaimer">This is a basic educational demo, not a real AI detector. It can miss scams or flag legitimate messages. Verify the sender independently.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section warning-section">
+      <div class="section-heading">
+        <span class="eyebrow">KNOW WHAT TO LOOK FOR</span>
+        <h2>Red flags worth<br><em>paying attention to.</em></h2>
+      </div>
+      <div class="warning-grid">
+        <article class="warning-card"><span>↗</span><h3>Too good to be true</h3><p>Unusually high pay for very little work or no experience.</p></article>
+        <article class="warning-card"><span>₹</span><h3>Pay to get paid</h3><p>Requests for registration fees, deposits, or training payments.</p></article>
+        <article class="warning-card"><span>⌛</span><h3>Artificial urgency</h3><p>Pressure to act immediately or lose an exclusive opportunity.</p></article>
+        <article class="warning-card"><span>◇</span><h3>Personal data requests</h3><p>Early requests for OTPs, passwords, banking details, or identity documents.</p></article>
+      </div>
+    </section>
+
+    <section class="safety-section section" id="safety">
+      <div class="safety-copy">
+        <span class="eyebrow">YOUR SAFETY CHECKLIST</span>
+        <h2>Small checks.<br><em>Stronger boundaries.</em></h2>
+        <p>Before accepting an offer or clicking a link, take a breath and work through these checks.</p>
+        <div class="check-progress"><div class="progress-track"><div id="progressBar"></div></div><span id="progressText">0 of 5 completed</span></div>
+      </div>
+      <div class="checklist" id="checklist">
+        <label class="check-item"><input type="checkbox"><span class="custom-check">✓</span><span><strong>Verify the company</strong><small>Find its official website and contact details independently.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="custom-check">✓</span><span><strong>Check the sender</strong><small>Look closely at the email address and account identity.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="custom-check">✓</span><span><strong>Never pay to secure a job</strong><small>Treat upfront job fees and deposits as major red flags.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="custom-check">✓</span><span><strong>Protect your credentials</strong><small>Never share an OTP, password, or banking PIN.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="custom-check">✓</span><span><strong>Take time to decide</strong><small>Don't let threats or deadlines rush your decision.</small></span></label>
+      </div>
+    </section>
+
+    <section class="section about-section" id="about">
+      <span class="eyebrow">WHY SCAMSHIELD?</span>
+      <h2>More awareness.<br><em>Less uncertainty.</em></h2>
+      <p>ScamShield AI is a student-focused concept designed to make digital safety easier to understand. Our demo helps users learn common scam warning signs and think carefully before trusting unfamiliar opportunities.</p>
+    </section>
+
+    <section class="section faq-section" id="faqs">
+      <div class="section-heading">
+        <span class="eyebrow">GOOD QUESTIONS TO ASK</span>
+        <h2>Frequently asked <em>questions.</em></h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item"><summary>Can ScamShield guarantee that a message is safe?</summary><p>No. This demo checks a small set of common warning signs. A message with no detected red flags may still be fraudulent.</p></details>
+        <details class="faq-item"><summary>Does the scanner use a real AI model?</summary><p>Not yet. This version uses simple local keyword rules for demonstration and educational purposes. A real AI service would require a properly configured backend.</p></details>
+        <details class="faq-item"><summary>Should I pay a fee to get a job?</summary><p>Be very cautious. Requests for upfront payments to secure employment are a significant warning sign. Independently verify the company and offer before proceeding.</p></details>
+        <details class="faq-item"><summary>What should I do if I suspect a scam in India?</summary><p>Do not send money or share more information. Preserve evidence and report suspected cybercrime through official government channels, such as cybercrime.gov.in. If money has been lost, contact your bank promptly and consider calling India's cybercrime helpline at 1930.</p></details>
+      </div>
+    </section>
+
+    <section class="closing-cta">
+      <span class="eyebrow">A MOMENT CAN MAKE A DIFFERENCE</span>
+      <h2>Pause. Check. <em>Then decide.</em></h2>
+      <a href="#scanner" class="button button-cream">Check a Message ↗</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+  
+<!-- ABOUT + TEAM SECTION -->
+<section class="about-team-section" id="about">
+  <div class="about-team-container">
+
+    <div class="about-content">
+      <div class="about-illustration" aria-hidden="true">
+        <div class="illustration-circle">🛡️</div>
+        <div class="illustration-sparkle sparkle-one">✦</div>
+        <div class="illustration-sparkle sparkle-two">✧</div>
+        <div class="illustration-label">Stay aware. Stay safe.</div>
+      </div>
+
+      <div class="about-description">
+        <span class="section-eyebrow">OUR PURPOSE</span>
+        <h2>About ScamShield AI</h2>
+
+        <ul class="about-points">
+          <li>
+            <span class="point-icon">✦</span>
+            <span>An AI-powered platform concept for detecting suspicious job offers and potential online scams.</span>
+          </li>
+          <li>
+            <span class="point-icon">✓</span>
+            <span>Highlights common scam indicators and provides practical safety recommendations.</span>
+          </li>
+          <li>
+            <span class="point-icon">♧</span>
+            <span>Promotes digital awareness and helps users make safer, more informed decisions.</span>
+          </li>
+          <li>
+            <span class="point-icon">✧</span>
+            <span>Built to address real-world cybersecurity challenges through accessible technology.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="team-content">
+      <div class="team-intro">
+        <span class="section-eyebrow">THE PEOPLE BEHIND THE PROJECT</span>
+        <h2>Meet Our Team <span>— NexGen</span></h2>
+        <p>
+          We are a team of student innovators passionate about technology,
+          collaboration, and creating meaningful solutions for real-world problems.
+          Together, we aim to encourage digital awareness and make online spaces safer.
+        </p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-member">
+          <span class="member-avatar">SS</span>
+          <span>Sukriti Sharma</span>
+        </div>
+
+        <div class="team-member">
+          <span class="member-avatar">HK</span>
+          <span>Harjot Kaur</span>
+        </div>
+
+        <div class="team-member">
+          <span class="member-avatar">SK</span>
+          <span>Simran Kaur</span>
+        </div>
+
+        <div class="team-member">
+          <span class="member-avatar">YA</span>
+          <span>Yajat Angrish</span>
+        </div>
+
+        <div class="team-member">
+          <span class="member-avatar">AS</span>
+          <span>Ananya Sharma</span>
+        </div>
+
+        <div class="team-member">
+          <span class="member-avatar">AV</span>
+          <span>Aditiya Verma</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  </footer>
+</body>
+</html>
+
