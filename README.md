@@ -178,6 +178,7 @@ The API listens at `http://127.0.0.1:5000`. The execution-policy change applies 
 - `GET /` — health check.
 - `POST /api/analyze` — analyse a message, resolve a company name, and save an investigation report.
 - `GET /api/reports/<report_token>` — retrieve a saved report.
+- `GET /webhook/whatsapp` and `POST /webhook/whatsapp` — WhatsApp webhook verification and incoming messages.
 
 Request JSON:
 
@@ -195,6 +196,21 @@ Run the detector and API tests with:
 ```powershell
 python -m unittest -v
 ```
+
+### WhatsApp webhook configuration
+
+Create a project-root `.env` file with the credentials configured in your WhatsApp Business app:
+
+```dotenv
+WHATSAPP_VERIFY_TOKEN=your_webhook_verification_token
+WHATSAPP_APP_SECRET=your_meta_app_secret
+WHATSAPP_ACCESS_TOKEN=your_whatsapp_access_token
+WHATSAPP_PHONE_NUMBER_ID=your_phone_number_id
+WHATSAPP_API_VERSION=vXX.X
+SCAMSHIELD_PUBLIC_URL=https://your-public-https-domain
+```
+
+Keep `.env` private; it is excluded from Git. Configure the same verification token in Meta. The webhook callback needs a public HTTPS URL; localhost is not reachable by Meta.
 
 The development server has debug mode enabled and CORS is open for local integration. Before deployment, disable debug mode and restrict CORS to the trusted frontend origin.
 

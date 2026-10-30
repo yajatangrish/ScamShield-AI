@@ -1,14 +1,20 @@
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
+
 from company_verifier import resolve_company_name
 from detector import analyze_message
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from models import InvestigationReport, db
+from whatsapp_bot import whatsapp_bp
 
 app = Flask(__name__)
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
+app.register_blueprint(whatsapp_bp)
 database_path = os.path.join(base_dir, "scamshield.db")
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     "sqlite:///" + database_path.replace("\\", "/")
