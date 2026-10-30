@@ -58,9 +58,9 @@ The engine calculates a total score based on the detected indicators.
 - **Language:** Python
 - **Detection Approach:** Explainable Rule-Based Detection
 - **Testing:** Python unittest
-- **Dependencies:** Python Standard Library
+- **Dependencies:** Python Standard Library for the detector; Flask and Flask-CORS for the API.
 
-No external package or API key is required for the current detection engine.
+No external API key is required.
 
 ## 📁 Project Structure
 
@@ -151,6 +151,43 @@ Planned improvements include:
 - Improved detection of new and evolving scam techniques.
 
 Any future AI-generated warning should be supported by message evidence or verified external information.
+
+## 🌐 Backend API
+
+The Flask API exposes the detection engine for frontend integration.
+
+### Setup (Windows PowerShell)
+
+```powershell
+py -m venv venv
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python app.py
+```
+
+The API listens at `http://127.0.0.1:5000`. The execution-policy change applies only to the current PowerShell process.
+
+### Endpoints
+
+- `GET /` — health check.
+- `POST /api/analyze` — analyse a message and return the detector result.
+
+Request JSON:
+
+```json
+{
+  "message": "Pay a fee to unlock your earning tasks."
+}
+```
+
+Run the detector and API tests with:
+
+```powershell
+python -m unittest -v
+```
+
+The development server has debug mode enabled and CORS is open for local integration. Before deployment, disable debug mode and restrict CORS to the trusted frontend origin.
 
 ## 👥 Project
 
