@@ -158,179 +158,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
     items.forEach((item) => addListItem(list, item));
   }
+/* PYTHON BACKEND CONNECTION */
 
-  /* DEMO SCAM CHECKS */
-
-  const indicators = [
-    {
-      name: "Upfront payment request",
-      phrases: [
-        "registration fee",
-        "pay a fee",
-        "upfront payment",
-        "security deposit",
-        "processing fee",
-        "pay to start",
-        "pay first",
-        "training fee",
-        "deposit money"
-      ],
-      warning:
-        "The message asks for an upfront payment or fee.",
-      advice:
-        "Do not pay to secure a job. Verify the employer independently."
+async function analyseMessage(message) {
+  const response = await fetch("/api/analyze", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
     },
-    {
-      name: "Unrealistic income promise",
-      phrases: [
-        "earn ₹",
-        "earn rs",
-        "guaranteed income",
-        "easy money",
-        "earn daily",
-        "no experience required",
-        "work 1 hour",
-        "high income",
-        "make money fast",
-        "get rich"
-      ],
-      warning:
-        "The message may promise unusually high earnings or easy money.",
-      advice:
-        "Check whether the pay, duties, and experience requirements are realistic."
-    },
-    {
-      name: "Urgency or pressure",
-      phrases: [
-        "act now",
-        "limited time",
-        "immediately",
-        "urgent",
-        "last chance",
-        "offer expires",
-        "within 24 hours",
-        "hurry",
-        "right now"
-      ],
-      warning:
-        "The message uses urgency or pressure to encourage a quick decision.",
-      advice:
-        "Take your time. A legitimate opportunity should allow reasonable verification."
-    },
-    {
-      name: "Sensitive information request",
-      phrases: [
-        "share your otp",
-        "send otp",
-        "password",
-        "bank details",
-        "card number",
-        "upi pin",
-        "banking pin",
-        "verification code",
-        "aadhaar number",
-        "pan card details"
-      ],
-      warning:
-        "The message may request sensitive personal, banking, or account information.",
-      advice:
-        "Never share an OTP, password, UPI PIN, or banking credentials."
-    },
-    {
-      name: "Suspicious link or contact",
-      phrases: [
-        "click this link",
-        "click the link",
-        "unknown link",
-        "telegram me",
-        "whatsapp me",
-        "contact on telegram",
-        "download this app",
-        "install this app"
-      ],
-      warning:
-        "The message directs you to an external link, app, or informal contact channel.",
-      advice:
-        "Avoid unknown links and verify the contact through the company's official website."
-    },
-    {
-      name: "Unverified job offer",
-      phrases: [
-        "you are selected",
-        "selected without interview",
-        "job confirmed",
-        "instant hiring",
-        "no interview needed",
-        "congratulations you won",
-        "you have won"
-      ],
-      warning:
-        "The message may offer a job or reward without a clear verification process.",
-      advice:
-        "Confirm the job opening and recruitment process through official company channels."
-    }
-  ];
+    body: JSON.stringify({ message: message })
+  });
 
-  function analyseMessage(message) {
-    const normalized = message.toLowerCase();
-    const matchedIndicators = [];
-    const warnings = [];
-    const recommendations = [];
-    const highlightedPhrases = [];
+  const data = await response.json();
 
-    indicators.forEach((indicator) => {
-      const matchedPhrases = indicator.phrases.filter((phrase) =>
-        normalized.includes(phrase)
-      );
-
-      if (matchedPhrases.length > 0) {
-        matchedIndicators.push(indicator.name);
-        warnings.push(indicator.warning);
-        recommendations.push(indicator.advice);
-
-        matchedPhrases.forEach((phrase) => {
-          if (!highlightedPhrases.includes(phrase)) {
-            highlightedPhrases.push(phrase);
-          }
-        });
-      }
-    });
-
-    const hasMoneyOrCredentialRisk =
-      matchedIndicators.includes("Upfront payment request") ||
-      matchedIndicators.includes("Sensitive information request");
-
-    let risk = "uncertain";
-    let title = "More information needed";
-    let summary =
-      "The demo did not find enough of its known warning phrases to make a useful assessment. This does not mean the message is safe.";
-
-    if (hasMoneyOrCredentialRisk || matchedIndicators.length >= 3) {
-      risk = "high";
-      title = "High concern — review carefully";
-      summary =
-        "Several concerning indicators were found. Do not pay, share sensitive details, or follow suspicious instructions until you have verified the offer.";
-    } else if (matchedIndicators.length >= 1) {
-      risk = "medium";
-      title = "Potential warning signs found";
-      summary =
-        "The message contains one or more phrases associated with common scam tactics. Review the findings and verify the sender independently.";
-    } else if (message.trim().length >= 80) {
-      risk = "low";
-      title = "Few known warning signs detected";
-      summary =
-        "The demo did not match its limited list of common warning phrases. This is not proof that the message is legitimate or safe.";
-    }
-
-    return {
-      risk,
-      title,
-      summary,
-      warnings,
-      recommendations,
-      highlightedPhrases
-    };
+  if (!response.ok) {
+    throw new Error(data.error || "Analysis failed.");
   }
+
+  const riskMap = {
+    High: "high",
+    Medium: "medium",
+    Low: "low"
+  };
+
+  const titleMap = {
+    High: "High concern — review carefully",
+    Medium: "Potential warning signs found",
+    Low: "Few known warning signs detected"
+  };
+
+  return {
+    risk: riskMap[data.risk_level] || "uncertain",
+    title: titleMap[data.risk_level] || "More information needed",
+    summary:
+      `${data.explanation} ${data.assessment_note} Risk points: ${data.score}.`,
+    warnings: data.signals || [],
+    recommendations: data.recommendation
+      ? [data.recommendation]
+      : [],
+    highlightedPhrases: (data.evidence || [])
+      .map(item => item.matched_text)
+      .filter(Boolean)
+  };
+}
 
   /* DISPLAY RESULTS */
 
@@ -403,58 +273,47 @@ document.addEventListener("DOMContentLoaded", () => {
     resultsPanel.hidden = false;
   }
 
-  /* ANALYZE BUTTON */
+ /* ANALYZE BUTTON */
 
-  let scanTimeout = null;
+if (analyzeBtn && messageInput) {
+  analyzeBtn.addEventListener("click", async () => {
+    const message = messageInput.value.trim();
 
-  if (analyzeBtn && messageInput) {
-    analyzeBtn.addEventListener("click", () => {
-      const message = messageInput.value.trim();
+    hideError();
 
-      hideError();
+    if (!message) {
+      hideResults();
+      showError("Please paste a message before starting the scan.");
+      messageInput.focus();
+      return;
+    }
 
-      if (!message) {
-        hideResults();
-        showError("Please paste a message before starting the scan.");
-        messageInput.focus();
-        return;
-      }
+    if (message.length < 20) {
+      hideResults();
+      showError("Please enter at least 20 characters.");
+      messageInput.focus();
+      return;
+    }
 
-      if (message.length < 20) {
-        hideResults();
-        showError(
-          "Please enter a little more text (at least 20 characters) for this demo review."
-        );
-        messageInput.focus();
-        return;
-      }
+    resultsPanel.hidden = true;
+    scanLoading.hidden = false;
+    analyzeBtn.disabled = true;
+    analyzeBtn.textContent = "Analyzing...";
 
-      if (scanTimeout) {
-        clearTimeout(scanTimeout);
-      }
-
-      resultsPanel.hidden = true;
-      scanLoading.hidden = false;
-      analyzeBtn.disabled = true;
-      analyzeBtn.textContent = "Analyzing...";
-
-      scanTimeout = setTimeout(() => {
-        try {
-          const result = analyseMessage(message);
-          scanLoading.hidden = true;
-          displayResults(result);
-        } catch (error) {
-          console.error("Scanner error:", error);
-          showError("Something went wrong. Please try again.");
-        } finally {
-          analyzeBtn.disabled = false;
-          analyzeBtn.textContent = "Analyze Message ↗";
-          scanTimeout = null;
-        }
-      }, 850);
-    });
-  }
-
+    try {
+      const result = await analyseMessage(message);
+      scanLoading.hidden = true;
+      displayResults(result);
+    } catch (error) {
+      console.error("Scanner error:", error);
+      showError(error.message || "Something went wrong.");
+    } finally {
+      scanLoading.hidden = true;
+      analyzeBtn.disabled = false;
+      analyzeBtn.textContent = "Analyze Message ↗";
+    }
+  });
+}
   /* SAMPLE MESSAGE BUTTON */
 
   if (sampleBtn && messageInput) {
