@@ -58,7 +58,7 @@ The engine calculates a total score based on the detected indicators.
 - **Language:** Python
 - **Detection Approach:** Explainable Rule-Based Detection
 - **Testing:** Python unittest
-- **Dependencies:** Python Standard Library for the detector; Flask and Flask-CORS for the API.
+- **Dependencies:** Python Standard Library for the detector; Flask, Flask-CORS, and Flask-SQLAlchemy for the API and report storage.
 
 No external API key is required.
 
@@ -77,6 +77,11 @@ scamshield_ai_detection/
 |---|---|
 | `detector.py` | Detection rules, scoring, evidence and recommendations |
 | `test_detector.py` | Automated tests for detection behaviour |
+| `app.py` | Flask API routes for screening and report retrieval |
+| `company_verifier.py` | Extracts a possible company name or uses the user-provided name |
+| `models.py` | SQLAlchemy model for saved investigation reports |
+| `test_app.py` | API and company-name handling tests |
+| `requirements.txt` | API and database dependencies |
 | `README.md` | Project documentation |
 | `.gitignore` | Excludes unnecessary files from Git |
 
@@ -171,15 +176,19 @@ The API listens at `http://127.0.0.1:5000`. The execution-policy change applies 
 ### Endpoints
 
 - `GET /` — health check.
-- `POST /api/analyze` — analyse a message and return the detector result.
+- `POST /api/analyze` — analyse a message, resolve a company name, and save an investigation report.
+- `GET /api/reports/<report_token>` — retrieve a saved report.
 
 Request JSON:
 
 ```json
 {
-  "message": "Pay a fee to unlock your earning tasks."
+  "message": "You have been selected at Google. Pay a fee to unlock your earning tasks.",
+  "company_name": "Microsoft"
 }
 ```
+
+The optional `company_name` lets the user correct a name extracted from the message. The response includes `company_name` and `company_source` (`User provided`, `Automatically extracted`, or `Not identified`). Reports store the resolved name, but company extraction is a text heuristic and does not verify that a company is genuine.
 
 Run the detector and API tests with:
 
